@@ -120,6 +120,8 @@ Where:
 * **n** = Loan Tenure in months
 
 ---
+#ScreenShort
+<img width="976" height="511" alt="image" src="https://github.com/user-attachments/assets/e3276928-b31c-4089-8613-b707be30585b" />
 
 # Project Structure
 
