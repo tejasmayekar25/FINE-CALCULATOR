@@ -1,19 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Calculator</title>
+  <meta charset="UTF-8">
+  <title>ASTRA Custom Expense & Loan EMI Calculator</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 20px; background: #f4f4f9; color: #333; }
+    h2 { margin-top: 30px; color: #4BC0C0; }
+    input { margin: 5px; padding: 8px; width: 220px; border: 1px solid #ccc; border-radius: 5px; }
+    button { margin: 10px; padding: 10px 15px; background: #4BC0C0; color: white; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    button:hover { background: #36A2EB; }
+    #expenseChart, #budgetChart { margin-top: 20px; max-width: 500px; }
+    .expense-list { margin-top: 10px; }
+  </style>
 </head>
 <body>
-    <h1>Welcome to the Calculator</h1>
-    <input type="text" id="input" placeholder="Enter expression"/>
-    <button onclick="calculate()">Calculate</button>
-    <p id="result"></p>
-    <script>
-        function calculate() {
-            const input = document.getElementById('input').value;
-            const result = eval(input);
-            document.getElementById('result').innerText = result;
-        }
-    </script>
+  <h1>Fine Calculator</h1>
+
+  <h2>Add Daily Expense Categories</h2>
+  <input type="text" id="expenseName" placeholder="Expense Name">
+  <input type="number" id="expenseAmount" placeholder="Amount">
+  <button onclick="addExpense()">Add Expense</button>
+  <div class="expense-list" id="expenseList"></div>
+  <p id="dailyTotal"></p>
+
+  <h2>Loan & EMI Calculator</h2>
+  <input type="number" id="loan" placeholder="Loan Amount">
+  <input type="number" id="rate" placeholder="Annual Interest %">
+  <input type="number" id="tenure" placeholder="Tenure (months)">
+  <button onclick="calcEMI()">Calculate EMI</button>
+  <p id="emiResult"></p>
+
+  <h2>Add Money (Income)</h2>
+  <input type="number" id="income" placeholder="Monthly Income">
+  <button onclick="calcBalance()">Calculate Balance</button>
+  <p id="balanceResult"></p>
+
+  <h2>Expense vs EMI Chart</h2>
+  <canvas id="expenseChart"></canvas>
+
+  <h2>Budget Comparison Chart</h2>
+  <canvas id="budgetChart"></canvas>
+
+  <button onclick="exportToExcel()">Export to Excel (CSV)</button>
+
+  <script>
+    let chart, budgetChart;
+    let expenses = []; // dynamic list
+    let emiValue = 0;
+    let incomeValue = 0;
+
+    function addExpense() {
+      let name = document.getElementById("expenseName").value;
+      let amount = +document.getElementById("expenseAmount").value || 0;
+
+      if(name && amount > 0) {
+        expenses.push({name, amount});
+        renderExpenseList();
+        calcExpense();
+      }
+      document.getElementById("expenseName").value = "";
+      document.getElementById("expenseAmount").value = "";
+    }
+
+    function renderExpenseList() {
+      let listDiv = document.getElementById("expenseList");
+      listDiv.innerHTML = expenses.map(e => `<p>${e.name}: ₹${e.amount}</p>`).join("");
+    }
+
+    function calcExpense() {
+      let total = expenses.reduce((sum, e) => sum + e.amount, 0);
+      document.getElementById("dailyTotal").innerText = "Total Daily Expense: ₹" + total;
+      updateChart();
+    }
+
+    function calcEMI() {
+      let P = +document.getElementById("loan").value;
+      let annualRate = +document.getElementById("rate").value;
+      let n = +document.getElementById("tenure").value;
+      let r = annualRate/12/100;
+
+      let emi = (P*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+      emiValue = emi;
+      document.getElementById("emiResult").innerText = "Monthly EMI: ₹" + emi.toFixed(2);
+
+      updateChart();
+    }
+
+    function calcBalance() {
+      incomeValue = +document.getElementById("income").value || 0;
+      let totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0) + emiValue;
+      let balance = incomeValue - totalExpenses;
+      document.getElementById("balanceResult").innerText = "Remaining Balance: ₹" + balance.toFixed(2);
+
+      updateBudgetChart(totalExpenses);
+    }
+
+    function updateChart() {
+      let labels = expenses.map(e => e.name).concat("EMI");
+      let data = expenses.map(e => e.amount).concat(emiValue);
+
+      if(chart) chart.destroy();
+
+      chart = new Chart(document.getElementById("expenseChart"), {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: ["#FF6384","#36A2EB","#FFCE56","#4BC0C0","#9966FF","#FF9F40","#8BC34A","#E91E63"]
+          }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+      });
+    }
+
+    function updateBudgetChart(totalExpenses) {
+      if(budgetChart) budgetChart.destroy();
+
+      budgetChart = new Chart(document.getElementById("budgetChart"), {
+        type: 'bar',
+        data: {
+          labels: ["Income", "Expenses + EMI"],
+          datasets: [{
+            label: "Budget Comparison",
+            data: [incomeValue, totalExpenses],
+            backgroundColor: ["#36A2EB", "#FF6384"]
+          }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+      });
+    }
+function exportToExcel() {
+  let totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+  let balance = incomeValue - (totalExpenses + emiValue);
+
+  // Current date/time stamp
+  let now = new Date();
+  let timestamp = now.toLocaleString();
+
+  // Build rows with decorative formatting
+  let rows = [
+    ["==============================","=============================="],
+    ["        Fine Calculator Report",""],
+    ["==============================","=============================="],
+    ["Report Generated On", timestamp],
+    ["--------------------","--------------------"],
+    ["Category","Amount (₹)"]
+  ];
+
+  // Add each expense category
+  expenses.forEach(e => rows.push([e.name, e.amount]));
+
+  // Add EMI, Income, Totals
+  rows.push(["EMI", emiValue.toFixed(2)]);
+  rows.push(["Income", incomeValue]);
+  rows.push(["Total Expenses + EMI", (totalExpenses + emiValue).toFixed(2)]);
+  rows.push(["Remaining Balance", balance.toFixed(2)]);
+  rows.push(["==============================","=============================="]);
+
+  // Convert to CSV
+  let csvContent = "data:text/csv;charset=utf-8," 
+    + rows.map(e => e.join(",")).join("\n");
+
+  // Download file
+  let link = document.createElement("a");
+  link.setAttribute("href", encodeURI(csvContent));
+  link.setAttribute("download", "FineCalculator_Report.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+  </script>
 </body>
-</html>
+    </html>
