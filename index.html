@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+</head>
+<body>
+    <h1>Welcome to the Calculator</h1>
+    <input type="text" id="input" placeholder="Enter expression"/>
+    <button onclick="calculate()">Calculate</button>
+    <p id="result"></p>
+    <script>
+        function calculate() {
+            const input = document.getElementById('input').value;
+            const result = eval(input);
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</body>
+</html>
