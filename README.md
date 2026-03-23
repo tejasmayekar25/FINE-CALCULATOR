@@ -7,7 +7,7 @@ It provides an easy interface to add expense categories, calculate total expense
 
 The application also allows users to export their financial data as a CSV file for further analysis in spreadsheet software like Microsoft Excel.
 
-website-http://127.0.0.1:5500/CALCULATOR.html
+website-https://fine-calculator-ixa7.vercel.app/
 ---
 
 # Features
