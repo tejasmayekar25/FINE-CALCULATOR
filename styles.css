@@ -1,54 +1,103 @@
-# Fine Calculator
+/* Navbar Styling */
+.navbar {
+  background: linear-gradient(135deg, #4BC0C0 0%, #36A2EB 100%);
+  padding: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-A single-page expense tracker and loan EMI calculator with live charts and CSV export, built in plain HTML/CSS/JavaScript using Chart.js.
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 60px;
+}
 
-## File structure
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-```
-fine-calculator/
-├── index.html           # Markup only — links css/styles.css and js/calculator.js
-├── css/
-│   └── styles.css        # All styling
-├── js/
-│   └── calculator.js     # All app logic (expenses, EMI, charts, CSV export)
-└── README.md
-```
+.navbar-logo {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
 
-There's no build step, no backend, and no dependencies to install beyond
-the Chart.js CDN script already linked in `index.html`'s `<head>`.
+.navbar-menu {
+  display: flex;
+  gap: 30px;
+}
 
-## Features
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
 
-- **Daily expenses** — add named expense entries with amounts; running total
-  updates automatically
-- **Loan EMI calculator** — enter loan amount, annual interest rate, and
-  tenure (months) to compute the monthly EMI
-- **Income & balance** — enter monthly income to see what's left after
-  expenses and EMI
-- **Charts** (via Chart.js)
-  - Pie chart: expense categories vs. EMI
-  - Bar chart: income vs. total expenses + EMI
-- **CSV export** — download a timestamped report of all expenses, EMI,
-  income, and remaining balance
+.navbar-link:hover {
+  opacity: 0.8;
+}
 
-## Running it
+/* Container for main content */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-No install required — just open the file in a browser:
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  background: #f4f4f9;
+  color: #333;
+}
 
-```bash
-open index.html       # macOS
-start index.html      # Windows
-xdg-open index.html   # Linux
-```
+h2 {
+  margin-top: 30px;
+  color: #4BC0C0;
+}
 
-Or serve it locally if you prefer (e.g. `npx serve .`).
+input {
+  margin: 5px;
+  padding: 8px;
+  width: 220px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
-## Notes
+button {
+  margin: 10px;
+  padding: 10px 15px;
+  background: #4BC0C0;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
 
-- All amounts are displayed in ₹ (Indian Rupees); change the currency
-  symbol in `index.html` if you need a different currency.
-- EMI is calculated with the standard reducing-balance formula:
-  `EMI = P × r × (1+r)^n / ((1+r)^n − 1)`, where `r` is the monthly
-  interest rate and `n` is the tenure in months.
-- All data is in-memory only (page refresh clears expenses); there's no
-  persistence layer (localStorage/database) yet.
+button:hover {
+  background: #36A2EB;
+}
+
+#expenseChart,
+#budgetChart {
+  margin-top: 20px;
+  max-width: 500px;
+}
+
+.expense-list {
+  margin-top: 10px;
+}

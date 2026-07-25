@@ -2,175 +2,153 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fine-Calculator Custom Expense & Loan EMI Calculator</title>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 20px; background: #f4f4f9; color: #333; }
-    h2 { margin-top: 30px; color: #4BC0C0; }
-    input { margin: 5px; padding: 8px; width: 220px; border: 1px solid #ccc; border-radius: 5px; }
-    button { margin: 10px; padding: 10px 15px; background: #4BC0C0; color: white; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    button:hover { background: #36A2EB; }
-    #expenseChart, #budgetChart { margin-top: 20px; max-width: 500px; }
-    .expense-list { margin-top: 10px; }
-  </style>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%234BC0C0' width='100' height='100'/><text x='50' y='70' font-size='60' fill='white' text-anchor='middle' font-weight='bold'>₹</text></svg>">
+
+  <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-  <h1>Fine-Calculator</h1>
 
-  <h2>Add Daily Expense Categories</h2>
-  <input type="text" id="expenseName" placeholder="Expense Name">
-  <input type="number" id="expenseAmount" placeholder="Amount">
-  <button onclick="addExpense()">Add Expense</button>
-  <div class="expense-list" id="expenseList"></div>
-  <p id="dailyTotal"></p>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-container">
 
-  <h2>Loan & EMI Calculator</h2>
-  <input type="number" id="loan" placeholder="Loan Amount">
-  <input type="number" id="rate" placeholder="Annual Interest %">
-  <input type="number" id="tenure" placeholder="Tenure (months)">
-  <button onclick="calcEMI()">Calculate EMI</button>
-  <p id="emiResult"></p>
+      <div class="navbar-brand">
+        <img
+          src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='white' width='100' height='100' rx='10'/><text x='50' y='70' font-size='60' fill='%234BC0C0' text-anchor='middle' font-weight='bold'>₹</text></svg>"
+          alt="Logo"
+          class="navbar-logo">
 
-  <h2>Add Money (Income)</h2>
-  <input type="number" id="income" placeholder="Monthly Income">
-  <button onclick="calcBalance()">Calculate Balance</button>
-  <p id="balanceResult"></p>
+        Fine-Calculator
+      </div>
 
-  <h2>Expense vs EMI Chart</h2>
-  <canvas id="expenseChart"></canvas>
+      <div class="navbar-menu">
+        <a href="#expenses" class="navbar-link">Expenses</a>
+        <a href="#emi" class="navbar-link">EMI Calculator</a>
+        <a href="#incomeSection" class="navbar-link">Income</a>
+        <a href="#charts" class="navbar-link">Charts</a>
+      </div>
 
-  <h2>Budget Comparison Chart</h2>
-  <canvas id="budgetChart"></canvas>
+    </div>
+  </nav>
 
-  <button onclick="exportToExcel()">Export to Excel (CSV)</button>
+  <div class="container">
 
-  <script>
-    let chart, budgetChart;
-    let expenses = []; // dynamic list
-    let emiValue = 0;
-    let incomeValue = 0;
+    <h1>Fine-Calculator</h1>
 
-    function addExpense() {
-      let name = document.getElementById("expenseName").value;
-      let amount = +document.getElementById("expenseAmount").value || 0;
+    <!-- Expenses -->
+    <section id="expenses">
 
-      if(name && amount > 0) {
-        expenses.push({name, amount});
-        renderExpenseList();
-        calcExpense();
-      }
-      document.getElementById("expenseName").value = "";
-      document.getElementById("expenseAmount").value = "";
-    }
+      <h2>Add Daily Expense Categories</h2>
 
-    function renderExpenseList() {
-      let listDiv = document.getElementById("expenseList");
-      listDiv.innerHTML = expenses.map(e => `<p>${e.name}: ₹${e.amount}</p>`).join("");
-    }
+      <input
+        type="text"
+        id="expenseName"
+        placeholder="Expense Name">
 
-    function calcExpense() {
-      let total = expenses.reduce((sum, e) => sum + e.amount, 0);
-      document.getElementById("dailyTotal").innerText = "Total Daily Expense: ₹" + total;
-      updateChart();
-    }
+      <input
+        type="number"
+        id="expenseAmount"
+        placeholder="Amount">
 
-    function calcEMI() {
-      let P = +document.getElementById("loan").value;
-      let annualRate = +document.getElementById("rate").value;
-      let n = +document.getElementById("tenure").value;
-      let r = annualRate/12/100;
+      <button onclick="addExpense()">
+        Add Expense
+      </button>
 
-      let emi = (P*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
-      emiValue = emi;
-      document.getElementById("emiResult").innerText = "Monthly EMI: ₹" + emi.toFixed(2);
+      <div
+        id="expenseList"
+        class="expense-list">
+      </div>
 
-      updateChart();
-    }
+      <p id="dailyTotal"></p>
 
-    function calcBalance() {
-      incomeValue = +document.getElementById("income").value || 0;
-      let totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0) + emiValue;
-      let balance = incomeValue - totalExpenses;
-      document.getElementById("balanceResult").innerText = "Remaining Balance: ₹" + balance.toFixed(2);
+    </section>
 
-      updateBudgetChart(totalExpenses);
-    }
+    <!-- EMI -->
+    <section id="emi">
 
-    function updateChart() {
-      let labels = expenses.map(e => e.name).concat("EMI");
-      let data = expenses.map(e => e.amount).concat(emiValue);
+      <h2>Loan & EMI Calculator</h2>
 
-      if(chart) chart.destroy();
+      <input
+        type="number"
+        id="loan"
+        placeholder="Loan Amount">
 
-      chart = new Chart(document.getElementById("expenseChart"), {
-        type: 'pie',
-        data: {
-          labels: labels,
-          datasets: [{
-            data: data,
-            backgroundColor: ["#FF6384","#36A2EB","#FFCE56","#4BC0C0","#9966FF","#FF9F40","#8BC34A","#E91E63"]
-          }]
-        },
-        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-      });
-    }
+      <input
+        type="number"
+        id="rate"
+        placeholder="Annual Interest %">
 
-    function updateBudgetChart(totalExpenses) {
-      if(budgetChart) budgetChart.destroy();
+      <input
+        type="number"
+        id="tenure"
+        placeholder="Tenure (Months)">
 
-      budgetChart = new Chart(document.getElementById("budgetChart"), {
-        type: 'bar',
-        data: {
-          labels: ["Income", "Expenses + EMI"],
-          datasets: [{
-            label: "Budget Comparison",
-            data: [incomeValue, totalExpenses],
-            backgroundColor: ["#36A2EB", "#FF6384"]
-          }]
-        },
-        options: { responsive: true, plugins: { legend: { display: false } } }
-      });
-    }
-function exportToExcel() {
-  let totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
-  let balance = incomeValue - (totalExpenses + emiValue);
+      <button onclick="calcEMI()">
+        Calculate EMI
+      </button>
 
-  // Current date/time stamp
-  let now = new Date();
-  let timestamp = now.toLocaleString();
+      <p id="emiResult"></p>
 
-  // Build rows with decorative formatting
-  let rows = [
-    ["==============================","=============================="],
-    ["        Fine Calculator Report",""],
-    ["==============================","=============================="],
-    ["Report Generated On", timestamp],
-    ["--------------------","--------------------"],
-    ["Category","Amount (₹)"]
-  ];
+    </section>
 
-  // Add each expense category
-  expenses.forEach(e => rows.push([e.name, e.amount]));
+    <!-- Income -->
+    <section id="incomeSection">
 
-  // Add EMI, Income, Totals
-  rows.push(["EMI", emiValue.toFixed(2)]);
-  rows.push(["Income", incomeValue]);
-  rows.push(["Total Expenses + EMI", (totalExpenses + emiValue).toFixed(2)]);
-  rows.push(["Remaining Balance", balance.toFixed(2)]);
-  rows.push(["==============================","=============================="]);
+      <h2>Add Monthly Income</h2>
 
-  // Convert to CSV
-  let csvContent = "data:text/csv;charset=utf-8," 
-    + rows.map(e => e.join(",")).join("\n");
+      <input
+        type="number"
+        id="income"
+        placeholder="Monthly Income">
 
-  // Download file
-  let link = document.createElement("a");
-  link.setAttribute("href", encodeURI(csvContent));
-  link.setAttribute("download", "FineCalculator_Report.csv");
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-  </script>
+      <button onclick="updateIncome()">
+        Set Income
+      </button>
+
+      <p
+        id="incomeDisplay"
+        style="font-weight:bold;color:#4BC0C0;">
+      </p>
+
+      <p
+        id="balanceResult"
+        style="font-size:18px;font-weight:bold;">
+      </p>
+
+    </section>
+
+    <!-- Charts -->
+    <section id="charts">
+
+      <h2>Expense vs EMI Chart</h2>
+
+      <canvas id="expenseChart"></canvas>
+
+      <br><br>
+
+      <h2>Budget Comparison Chart</h2>
+
+      <canvas id="budgetChart"></canvas>
+
+    </section>
+
+    <br>
+
+    <button onclick="exportToExcel()">
+      Export to Excel (CSV)
+    </button>
+
+  </div>
+
+  <script src="js/calculator.js"></script>
+
 </body>
-    </html>
+</html>

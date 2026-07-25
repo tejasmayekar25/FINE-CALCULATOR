@@ -1,149 +1,54 @@
-# Fine-Calculator (Expense & Loan EMI Calculator)
+# Fine Calculator
 
-## Overview
+A single-page expense tracker and loan EMI calculator with live charts and CSV export, built in plain HTML/CSS/JavaScript using Chart.js.
 
-Fine Calculator is a simple web-based financial tool that helps users manage their daily expenses, calculate loan EMI, track monthly income, and visualize spending patterns through charts.
-It provides an easy interface to add expense categories, calculate total expenses, and compare them with income.
-
-The application also allows users to export their financial data as a CSV file for further analysis in spreadsheet software like Microsoft Excel.
-
-website-https://fine-calculator-ixa7.vercel.app/
----
-
-# Features
-
-### 1. Daily Expense Management
-
-* Add multiple expense categories (Food, Travel, Bills, etc.)
-* Automatically calculates total daily expenses
-* Displays the list of entered expenses
-
-### 2. Loan EMI Calculator
-
-* Calculates EMI based on:
-
-  * Loan Amount
-  * Interest Rate
-  * Loan Tenure (months)
-* Uses the standard EMI formula used by banks
-
-### 3. Income & Balance Calculation
-
-* Enter monthly income
-* Calculates:
-
-  * Total expenses + EMI
-  * Remaining balance
-
-### 4. Data Visualization
-
-Two charts help understand financial distribution:
-
-**Expense vs EMI Pie Chart**
-
-* Shows how expenses and EMI are distributed
-
-**Budget Comparison Bar Chart**
-
-* Compares income vs expenses + EMI
-
-Charts are created using **Chart.js**.
-
-### 5. Export to Excel (CSV)
-
-* Generates a financial report
-* Includes:
-
-  * Expense categories
-  * EMI
-  * Income
-  * Total expenses
-  * Remaining balance
-  * Timestamp of report generation
-* File downloads automatically as **FineCalculator_Report.csv**
-
----
-
-# Technologies Used
-
-| Technology | Purpose                   |
-| ---------- | ------------------------- |
-| HTML       | Structure of the web page |
-| CSS        | Styling and layout        |
-| JavaScript | Application logic         |
-| Chart.js   | Data visualization        |
-| CSV Export | Data export for Excel     |
-
----
-
-# How to Use
-
-### Step 1: Add Expenses
-
-1. Enter expense name.
-2. Enter amount.
-3. Click **Add Expense**.
-
-### Step 2: Calculate EMI
-
-1. Enter Loan Amount.
-2. Enter Annual Interest Rate.
-3. Enter Loan Tenure (months).
-4. Click **Calculate EMI**.
-
-### Step 3: Add Income
-
-1. Enter monthly income.
-2. Click **Calculate Balance**.
-
-### Step 4: View Charts
-
-* Pie chart shows expense distribution.
-* Bar chart compares income with expenses.
-
-### Step 5: Export Report
-
-Click **Export to Excel (CSV)** to download the financial report.
-
----
-
-# EMI Formula Used
-
-[
-EMI = \frac{P \times r \times (1+r)^n}{(1+r)^n - 1}
-]
-
-Where:
-
-* **P** = Loan Amount
-* **r** = Monthly Interest Rate (Annual Rate / 12 / 100)
-* **n** = Loan Tenure in months
-
----
-ScreenShort
-<img width="976" height="511" alt="image" src="https://github.com/user-attachments/assets/e3276928-b31c-4089-8613-b707be30585b" />
-
-# Project Structure
+## File structure
 
 ```
-Fine-Calculator/
-│
-├── index.html      # Main application file
-├── README.md       # Project documentation
+fine-calculator/
+├── index.html           # Markup only — links css/styles.css and js/calculator.js
+├── css/
+│   └── styles.css        # All styling
+├── js/
+│   └── calculator.js     # All app logic (expenses, EMI, charts, CSV export)
+└── README.md
 ```
 
----
+There's no build step, no backend, and no dependencies to install beyond
+the Chart.js CDN script already linked in `index.html`'s `<head>`.
 
-# Future Improvements
+## Features
 
-* Expense editing and deletion
-* Monthly expense tracking
-* Data storage using Local Storage or Database
-* Mobile responsive design
-* Download report in PDF format
+- **Daily expenses** — add named expense entries with amounts; running total
+  updates automatically
+- **Loan EMI calculator** — enter loan amount, annual interest rate, and
+  tenure (months) to compute the monthly EMI
+- **Income & balance** — enter monthly income to see what's left after
+  expenses and EMI
+- **Charts** (via Chart.js)
+  - Pie chart: expense categories vs. EMI
+  - Bar chart: income vs. total expenses + EMI
+- **CSV export** — download a timestamped report of all expenses, EMI,
+  income, and remaining balance
 
----
+## Running it
 
-# Author
+No install required — just open the file in a browser:
 
-Developed as a simple financial management web tool using HTML, CSS, and JavaScript.
+```bash
+open index.html       # macOS
+start index.html      # Windows
+xdg-open index.html   # Linux
+```
+
+Or serve it locally if you prefer (e.g. `npx serve .`).
+
+## Notes
+
+- All amounts are displayed in ₹ (Indian Rupees); change the currency
+  symbol in `index.html` if you need a different currency.
+- EMI is calculated with the standard reducing-balance formula:
+  `EMI = P × r × (1+r)^n / ((1+r)^n − 1)`, where `r` is the monthly
+  interest rate and `n` is the tenure in months.
+- All data is in-memory only (page refresh clears expenses); there's no
+  persistence layer (localStorage/database) yet.
