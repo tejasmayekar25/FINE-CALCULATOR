@@ -105,8 +105,6 @@ Fine-Calculator/
 
 **Tejas Mayekar**
 
-GitHub: https://github.com/your-username
-
 ---
 
 ⭐ If you found this project helpful, consider giving it a star!
