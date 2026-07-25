@@ -1,25 +1,34 @@
 # 💰 Fine Calculator
 
-Fine Calculator is a simple web application that helps users keep track of their monthly finances. It allows you to add daily expenses, calculate loan EMI, compare your expenses with your monthly income, and view your spending using interactive charts.
+Fine Calculator is a simple web application for managing personal finances. It helps users track expenses, calculate loan EMI, compare income with expenses, visualize spending using charts, and export reports as CSV files.
 
-This project was built using HTML, CSS, JavaScript, and Chart.js as a practice project to improve front-end development skills while solving a real-life budgeting problem.
+## 🌐 Live Demo
 
----
-
-## 🚀 Features
-
-- Add daily expenses
-- Delete expenses when needed
-- Calculate monthly loan EMI
-- Enter monthly income
-- Automatically calculate the remaining balance
-- View expense distribution using charts
-- Compare income and expenses with a bar chart
-- Export the report as a CSV file
+🔗 https://your-website-link.com
 
 ---
 
-## 🛠️ Technologies Used
+## 📸 Screenshot
+
+<img width="949" height="499" alt="Screenshot 2026-07-26 011531" src="https://github.com/user-attachments/assets/ce407651-60df-4bb6-83db-bd992ad3142a" />
+
+
+---
+
+## ✨ Features
+
+- Track daily expenses
+- Loan EMI Calculator
+- Monthly Income Tracker
+- Remaining Balance Calculator
+- Expense Pie Chart
+- Budget Comparison Chart
+- Export report as CSV
+- Responsive interface
+
+---
+
+## 🛠️ Built With
 
 - HTML5
 - CSS3
@@ -28,142 +37,67 @@ This project was built using HTML, CSS, JavaScript, and Chart.js as a practice p
 
 ---
 
-## 📂 Project Structure
-
-```
-Fine-Calculator/
-│
-├── index.html
-├── README.md
-│
-├── css/
-│   └── styles.css
-│
-├── js/
-│   └── calculator.js
-│
-└── assets/
-    └── screenshot.png
-```
-
----
-
-## ▶️ Getting Started
-
-Clone the repository:
+## 🚀 Getting Started
 
 ```bash
 git clone https://github.com/your-username/Fine-Calculator.git
-```
-
-Open the project folder:
-
-```bash
 cd Fine-Calculator
 ```
 
-Finally, open **index.html** in your web browser.
-
-No installation or additional software is required.
+Open **index.html** in your browser.
 
 ---
 
 ## 📖 How to Use
 
-### Add Expenses
+1. Add your expenses.
+2. Enter loan details and calculate EMI.
+3. Enter your monthly income.
+4. View your remaining balance and charts.
+5. Delete expenses if needed.
+6. Export the report as a CSV file.
 
-1. Enter the expense name.
-2. Enter the amount.
-3. Click **Add Expense**.
+**Formula**
 
----
-
-### Calculate EMI
-
-Enter:
-
-- Loan Amount
-- Annual Interest Rate
-- Loan Tenure (Months)
-
-Click **Calculate EMI** to see your monthly EMI.
-
----
-
-### Calculate Remaining Balance
-
-Enter your monthly income and click **Calculate Balance**.
-
-The application calculates:
-
-```
-Remaining Balance = Monthly Income − (Expenses + EMI)
+```text
+Remaining Balance = Income − (Expenses + EMI)
 ```
 
 ---
 
-### Charts
+## 📂 Project Structure
 
-The application automatically updates:
-
-- Expense vs EMI Pie Chart
-- Income vs Expenses Bar Chart
-
----
-
-### Export Report
-
-Click the **Export to Excel (CSV)** button to download your financial report.
-
----
-
-## 📸 Screenshot
-
-> Add a screenshot of the application inside the `assets` folder.
-
-```markdown
-![Fine Calculator](assets/screenshot.png)
+```text
+Fine-Calculator/
+│
+├── index.html
+├── css/
+├── js/
+├── assets/
+└── README.md
 ```
 
 ---
 
-## 🌟 Future Improvements
-
-Some features planned for future versions:
+## 🔮 Future Improvements
 
 - Dark Mode
-- PDF Report Export
+- PDF Export
 - User Login
 - Cloud Database
-- Monthly Budget Notifications
-- AI-based Spending Suggestions
-- Mobile-Friendly Improvements
+- AI Budget Suggestions
 
 ---
 
 ## 📌 Version
 
-**v1.0.0**
-
-Initial release with:
+**v0.0.0**
 
 - Expense Tracker
 - EMI Calculator
-- Monthly Income Tracker
+- Income Tracker
 - Charts
 - CSV Export
-
----
-
-## 🤝 Contributing
-
-If you'd like to improve this project, feel free to fork the repository, make your changes, and create a pull request. Suggestions and improvements are always welcome.
-
----
-
-## 📄 License
-
-This project is available under the MIT License.
 
 ---
 
@@ -171,4 +105,8 @@ This project is available under the MIT License.
 
 **Tejas Mayekar**
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+GitHub: https://github.com/your-username
+
+---
+
+⭐ If you found this project helpful, consider giving it a star!
