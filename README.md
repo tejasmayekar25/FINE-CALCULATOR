@@ -1,54 +1,174 @@
-# Fine Calculator
+# 💰 Fine Calculator
 
-A single-page expense tracker and loan EMI calculator with live charts and CSV export, built in plain HTML/CSS/JavaScript using Chart.js.
+Fine Calculator is a simple web application that helps users keep track of their monthly finances. It allows you to add daily expenses, calculate loan EMI, compare your expenses with your monthly income, and view your spending using interactive charts.
 
-## File structure
+This project was built using HTML, CSS, JavaScript, and Chart.js as a practice project to improve front-end development skills while solving a real-life budgeting problem.
+
+---
+
+## 🚀 Features
+
+- Add daily expenses
+- Delete expenses when needed
+- Calculate monthly loan EMI
+- Enter monthly income
+- Automatically calculate the remaining balance
+- View expense distribution using charts
+- Compare income and expenses with a bar chart
+- Export the report as a CSV file
+
+---
+
+## 🛠️ Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript
+- Chart.js
+
+---
+
+## 📂 Project Structure
 
 ```
-fine-calculator/
-├── index.html           # Markup only — links css/styles.css and js/calculator.js
+Fine-Calculator/
+│
+├── index.html
+├── README.md
+│
 ├── css/
-│   └── styles.css        # All styling
+│   └── styles.css
+│
 ├── js/
-│   └── calculator.js     # All app logic (expenses, EMI, charts, CSV export)
-└── README.md
+│   └── calculator.js
+│
+└── assets/
+    └── screenshot.png
 ```
 
-There's no build step, no backend, and no dependencies to install beyond
-the Chart.js CDN script already linked in `index.html`'s `<head>`.
+---
 
-## Features
+## ▶️ Getting Started
 
-- **Daily expenses** — add named expense entries with amounts; running total
-  updates automatically
-- **Loan EMI calculator** — enter loan amount, annual interest rate, and
-  tenure (months) to compute the monthly EMI
-- **Income & balance** — enter monthly income to see what's left after
-  expenses and EMI
-- **Charts** (via Chart.js)
-  - Pie chart: expense categories vs. EMI
-  - Bar chart: income vs. total expenses + EMI
-- **CSV export** — download a timestamped report of all expenses, EMI,
-  income, and remaining balance
-
-## Running it
-
-No install required — just open the file in a browser:
+Clone the repository:
 
 ```bash
-open index.html       # macOS
-start index.html      # Windows
-xdg-open index.html   # Linux
+git clone https://github.com/your-username/Fine-Calculator.git
 ```
 
-Or serve it locally if you prefer (e.g. `npx serve .`).
+Open the project folder:
 
-## Notes
+```bash
+cd Fine-Calculator
+```
 
-- All amounts are displayed in ₹ (Indian Rupees); change the currency
-  symbol in `index.html` if you need a different currency.
-- EMI is calculated with the standard reducing-balance formula:
-  `EMI = P × r × (1+r)^n / ((1+r)^n − 1)`, where `r` is the monthly
-  interest rate and `n` is the tenure in months.
-- All data is in-memory only (page refresh clears expenses); there's no
-  persistence layer (localStorage/database) yet.
+Finally, open **index.html** in your web browser.
+
+No installation or additional software is required.
+
+---
+
+## 📖 How to Use
+
+### Add Expenses
+
+1. Enter the expense name.
+2. Enter the amount.
+3. Click **Add Expense**.
+
+---
+
+### Calculate EMI
+
+Enter:
+
+- Loan Amount
+- Annual Interest Rate
+- Loan Tenure (Months)
+
+Click **Calculate EMI** to see your monthly EMI.
+
+---
+
+### Calculate Remaining Balance
+
+Enter your monthly income and click **Calculate Balance**.
+
+The application calculates:
+
+```
+Remaining Balance = Monthly Income − (Expenses + EMI)
+```
+
+---
+
+### Charts
+
+The application automatically updates:
+
+- Expense vs EMI Pie Chart
+- Income vs Expenses Bar Chart
+
+---
+
+### Export Report
+
+Click the **Export to Excel (CSV)** button to download your financial report.
+
+---
+
+## 📸 Screenshot
+
+> Add a screenshot of the application inside the `assets` folder.
+
+```markdown
+![Fine Calculator](assets/screenshot.png)
+```
+
+---
+
+## 🌟 Future Improvements
+
+Some features planned for future versions:
+
+- Dark Mode
+- PDF Report Export
+- User Login
+- Cloud Database
+- Monthly Budget Notifications
+- AI-based Spending Suggestions
+- Mobile-Friendly Improvements
+
+---
+
+## 📌 Version
+
+**v1.0.0**
+
+Initial release with:
+
+- Expense Tracker
+- EMI Calculator
+- Monthly Income Tracker
+- Charts
+- CSV Export
+
+---
+
+## 🤝 Contributing
+
+If you'd like to improve this project, feel free to fork the repository, make your changes, and create a pull request. Suggestions and improvements are always welcome.
+
+---
+
+## 📄 License
+
+This project is available under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Tejas Mayekar**
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
