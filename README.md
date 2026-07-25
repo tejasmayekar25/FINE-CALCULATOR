@@ -4,7 +4,7 @@ Fine Calculator is a simple web application for managing personal finances. It h
 
 ## 🌐 Live Demo
 
-🔗 https://your-website-link.com
+🔗 [://your-website-link.com](https://fine-calculator-ixa7.vercel.app/)
 
 ---
 
