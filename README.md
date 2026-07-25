@@ -16,9 +16,8 @@ This project was created to practice front-end web development while building so
 
 ## 📸 Screenshot
 
-<p align="center">
-  <img src="assets/screenshot.png" alt="Fine Calculator" width="900">
-</p>
+<img width="949" height="505" alt="Screenshot 2026-07-26 015602" src="https://github.com/user-attachments/assets/cd929725-c65f-4ca7-8a43-9103cdcaa944" />
+
 
 ---
 
