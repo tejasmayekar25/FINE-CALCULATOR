@@ -10,8 +10,6 @@ This project was created to practice front-end web development while building so
 
 🔗 https://fine-calculator-ixa7.vercel.app/
 
-> Replace this link with your deployed website.
-
 ---
 
 ## 📸 Screenshot
